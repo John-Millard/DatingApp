@@ -31,4 +31,9 @@ export class NavComponent implements OnInit {
     this.accountService.logOut();
     this.router.navigateByUrl('/');
   }
+
+  editProfile() {
+    console.log('edit profile');
+    this.router.navigateByUrl('/member/edit');
+  }
 }
