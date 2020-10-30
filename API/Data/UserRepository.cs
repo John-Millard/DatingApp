@@ -44,11 +44,6 @@ namespace API.Data
                 .ToListAsync();
         }
 
-        public async Task<bool> SaveAllAsync()
-        {
-            return await this.dataContext.SaveChangesAsync() > 0;
-        }
-
         public void Update(AppUser user)
         {
             this.dataContext.Entry(user).State = EntityState.Modified;
@@ -84,6 +79,14 @@ namespace API.Data
                 query.ProjectTo<MemberDto>(this.mapper.ConfigurationProvider).AsNoTracking(),
                 userParameters.PageNumber,
                 userParameters.PageSize);
+        }
+
+        public async Task<string> GetUserGender(string userName)
+        {
+            return await this.dataContext.Users
+                .Where(user => user.UserName == userName)
+                .Select(user => user.Gender)
+                .FirstOrDefaultAsync();
         }
     }
 }
